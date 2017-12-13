@@ -24,7 +24,15 @@ app.get('*', (req, res) => {
 	const promises = matchRoutes(Routes, req.path).map(({ route }) => {
 		return route.loadData ? route.loadData(store) : null
 	})
-	Promise.all(promises).then(() => res.send(renderer(req, store)))
+	Promise.all(promises).then(() => {
+		const context = {}
+		const content = renderer(req, store, context)
+		console.log(context)
+		if (context.notFound) {
+			res.status(404)
+		}
+		res.send(content)
+	})
 })
 
 app.listen(3000, () => console.log('Listening on port 3000'))

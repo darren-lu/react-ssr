@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
-const Home = () => {
+const Home = x => {
+	console.log(x)
 	return (
 		<div className="center-align" style={{ marginTop: '200px' }}>
 			<h3>Welcome</h3>
